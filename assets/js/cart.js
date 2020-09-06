@@ -1,82 +1,52 @@
-$('button.remove').on('click', function(){
-  $(this).parent().velocity({
-    translateX: "-800px",
-    opacity: 0
-  },{
-    duration: 500,
-    complete: function(elem) {
-      $(elem).addClass("deleted");
-    },
-    easing: [ 0.65, -0.02, 0.72, 0.29 ] 
-  });
-});
-$("#mytable input").change( function() {
-  updateQuantity(this);
-});
-
-$('.btn-group #db1').click( function() {
-  removeItem(this);
-});
-function recalculateCart()
-{
-  var subtotal= 0;
-  
-  /* Sum up row totals */
-  $("#myDiv").each(function () {
-    subtotal1 = parseFloat($("#t1").text()*80);
-      subtotal2 = parseFloat($("#t2").text()*100);
-      subtotal3 = parseFloat($("#t3").text()*50);
-  });
-  
-  /* Calculate totals */
-  var tax = subtotal * taxRate;
-  var shipping = (subtotal > 0 ? shippingRate : 0);
-  var total = subtotal + tax + shipping;
-  
-  /* Update totals display */
-  $('.totals-value').fadeOut(fadeTime, function() {
-    $('#cart-subtotal').html(subtotal.toFixed(2));
-    $('#cart-tax').html(tax.toFixed(2));
-    $('#cart-shipping').html(shipping.toFixed(2));
-    $('#cart-total').html(total.toFixed(2));
-    if(total == 0){
-      $('.checkout').fadeOut(fadeTime);
-    }else{
-      $('.checkout').fadeIn(fadeTime);
-    }
-    $('.totals-value').fadeIn(fadeTime);
-  });
-}
-
-
-/* Update quantity */
-function updateQuantity(quantityInput)
-{
-  /* Calculate line price */
-  var productRow = $(quantityInput).parent().parent();
-  var price = parseFloat(productRow.children('.product-price').text());
-  var quantity = $(quantityInput).val();
-  var linePrice = price * quantity;
-  
-  /* Update line price display and recalc cart totals */
-  productRow.children('.product-line-price').each(function () {
-    $(this).fadeOut(fadeTime, function() {
-      $(this).text(linePrice.toFixed(2));
-      recalculateCart();
-      $(this).fadeIn(fadeTime);
-    });
-  });  
-}
-
-
-/* Remove item from cart */
-function removeItem(removeButton)
-{
-  /* Remove row from DOM and recalc cart total */
-  var productRow = $(removeButton).parent().parent();
-  productRow.slideUp(fadeTime, function() {
-    productRow.remove();
-    recalculateCart();
-  });
-}
-
+jQuery(function($) {
+            $("#rb1").click(function(){
+                var v1=0;
+                //alert($(".price1").text());
+                v1=parseFloat($("#t1").val())*parseFloat($(".price1").text());
+                v1=v1.toFixed(2);
+                $(".p1").text(v1);
+                calc();
+        });
+            $("#rb2").click(function(){
+                var v2=0;
+                //alert($(".price1").text());
+                v2=parseFloat($("#t2").val())*parseFloat($(".price2").text());
+                v2=v2.toFixed(2);
+                $(".p2").text(v2);
+                calc();
+        });
+            $("#rb3").click(function(){
+                var v3=0;
+                //alert($(".price1").text());
+                v3=parseFloat($("#t3").val())*parseFloat($(".price3").text());
+                v3=v3.toFixed(2);
+                $(".p3").text(v3);
+                calc();
+        });
+            $("#db1").click(function(){
+                try{$(".basket-product1").empty();
+                calc();}
+                catch(err){alert("err");}
+        });$("#db2").click(function(){
+                try{$(".basket-product2").hide();
+                calc();}
+                catch(err){alert("err");}
+                
+        });$("#db3").click(function(){
+                try{$(".basket-product3").hide();
+                calc();}
+                catch(err){alert("err");}
+        });
+            });
+        
+        var calc = function(){
+    var totalqut = 0,totalprice=0,ftotal=0;
+                totalqut=parseFloat($("#t1").val())+parseFloat($("#t2").val())+parseFloat($("#t3").val());
+            $(".total-items").text(totalqut);
+        totalprice=parseFloat($(".p1").text())+parseFloat($(".p2").text())+parseFloat($(".p3").text());        
+            totalprice=totalprice.toFixed(2);
+                $(".total-value").text(totalprice);
+            
+        ftotal=parseFloat($("#tv").text())-parseFloat($(".discount").text());
+                ftotal=ftotal.toFixed(2);
+                $(".Ftotal").text(ftotal);}
