@@ -24,29 +24,34 @@ jQuery(function($) {
                 calc();
         });
             $("#db1").click(function(){
-                try{$(".basket-product1").empty();
-                calc();}
-                catch(err){alert("err");}
+                $(".basket-product1").hide();
+                  $("#t1").val("0");
+                $(".p1").text("0");
+                calc();
         });$("#db2").click(function(){
-                try{$(".basket-product2").hide();
-                calc();}
-                catch(err){alert("err");}
+                $(".basket-product2").hide();
+                $("#t2").val("0");
+                $(".p2").text("0");
+                calc();
+                
                 
         });$("#db3").click(function(){
-                try{$(".basket-product3").hide();
-                calc();}
-                catch(err){alert("err");}
+                $(".basket-product3").hide();
+                $("#t3").val("0");
+                $(".p3").text("0");
+                calc();
+                
         });
             });
         
         var calc = function(){
-    var totalqut = 0,totalprice=0,ftotal=0;
-                totalqut=parseFloat($("#t1").val())+parseFloat($("#t2").val())+parseFloat($("#t3").val());
-            $(".total-items").text(totalqut);
-        totalprice=parseFloat($(".p1").text())+parseFloat($(".p2").text())+parseFloat($(".p3").text());        
-            totalprice=totalprice.toFixed(2);
-                $(".total-value").text(totalprice);
-            
+        var totalqut = 0,totalprice=0,ftotal=0;
+            totalqut=parseFloat($("#t1").val())+parseFloat($("#t2").val())+parseFloat($("#t3").val());
+        $(".total-items").text(totalqut);       totalprice=parseFloat($(".p1").text())+parseFloat($(".p2").text())+parseFloat($(".p3").text());        
+        totalprice=totalprice.toFixed(2);
+        $(".total-value").text(totalprice);           
         ftotal=parseFloat($("#tv").text())-parseFloat($(".discount").text());
-                ftotal=ftotal.toFixed(2);
-                $(".Ftotal").text(ftotal);}
+        ftotal=ftotal.toFixed(2);
+        $(".Ftotal").text(ftotal);
+            
+        }
